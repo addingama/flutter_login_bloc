@@ -1,17 +1,24 @@
 import 'dart:async';
+import 'validators.dart';
 
-class Bloc {
-  final emailController = StreamController<String>();
-  final passwordController = StreamController<String>();
+class Bloc extends Object with Validators {
+  final _email = StreamController<String>();
+  final _password = StreamController<String>();
 
 
   // Getter on dart using keyword `get`
 
-  // Add data to stream
-  Function(String) get changeEmail => emailController.sink.add;
-  Function(String) get changePassword => passwordController.sink.add;
+  // Changes data to stream
+  Function(String) get changeEmail => _email.sink.add;
+  Function(String) get changePassword => _password.sink.add;
 
-  // Regrieve data from stream
-  Stream<String> get email => emailController.stream;
-  Stream<String> get password => passwordController.stream;
+  // Retrieve data from stream
+  Stream<String> get email => _email.stream.transform(validateEmail);
+  Stream<String> get password => _password.stream.transform(validatePassword);
+
+  // clean up function
+  dispose () {
+    _email.close();
+    _password.close();
+  }
 }
