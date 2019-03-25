@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: 'you@example.com',
-        labelText: 'Email Address'
+        labelText: 'Email Address',
       ),
     );
   }
